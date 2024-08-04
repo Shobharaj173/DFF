@@ -1,0 +1,60 @@
+module df(d,rst,clk,q,qb);
+input d,rst,clk;
+output q,qb;
+reg q,qb;
+always@(posedge clk)
+begin
+if(rst==1)
+begin 
+q=0;
+qb=1;
+end 
+else
+begin
+q=d;
+qb=~d;
+end
+end
+endmodule
+
+
+
+
+TESTBENCH DFF 
+module df-tb;
+//Inputs
+reg d;
+reg rst;
+reg clk;
+//Outputs
+wire q;
+wire qb;
+
+df uut(
+.d(d),
+.rst(rst),
+.clk(clk),
+.q(q),
+.qb(qb)
+);
+
+initial
+clk=1’b0;
+always
+#5 clk=~clk;
+initial  begin
+d=1’b0;
+rst=1’b1;
+#30
+rst=1’b0;
+#40
+d=1’b1;
+#20
+d=1’b0;
+#40
+d=1’b1;
+#20
+d=1’b0;
+end
+endmodule
+
